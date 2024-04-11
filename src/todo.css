@@ -1,0 +1,95 @@
+/* todo.css */
+
+body {
+  background-color: #f2f2f2;
+  margin-top: 6%;
+}
+
+.container {
+  position: relative;
+}
+
+.to-do_textbox {
+  width: 100%;
+  height: 5%;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 2px;
+}
+
+.add_button {
+  width: 80px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.input-container {
+  padding: 5px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.to-do_table {
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.action_buttons {
+  width: 6%;
+  text-align: center;
+}
+
+.to-do_item {
+  padding: 10px;
+  border: 2px black solid;
+  border-radius: 5px;
+  margin-top: 3px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.to-do_item td {
+  max-width: 77%;
+}
+
+.action_buttons1 {
+  position: absolute;
+  top: 50%;
+  margin-right: 15%;
+  transform: translateY(-50%);
+  right: 5px;
+}
+
+.action_buttons2 {
+  position: absolute;
+  top: 50%;
+  margin-right: 9%;
+  transform: translateY(-50%);
+  right: 5px;
+}
+
+.action_buttons3 {
+  position: absolute;
+  top: 50%;
+  margin-right: 3%;
+  transform: translateY(-50%);
+  right: 5px;
+}
+
+.remove-all-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 90px;
+  height: 30px;
+  font-size: 14px;
+  border-radius: 5px;
+}
