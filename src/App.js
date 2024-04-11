@@ -5,21 +5,24 @@ function App() {
   const [mytext, setMytext] = useState("");
   const [myarray, setMyarray] = useState([]);
   const [markedItems, setMarkedItems] = useState([]);
+  const [editIndex, setEditIndex] = useState(-1); // New state to track the index being edited
 
   // Load data from localStorage on component mount
   useEffect(() => {
     const storedData = localStorage.getItem("todoList");
+    const storedMarks = localStorage.getItem("markedItems");
     document.querySelector('.to-do_textbox').focus();
     if (storedData) {
       setMyarray(JSON.parse(storedData));
-      setMarkedItems(new Array(JSON.parse(storedData).length).fill(false));
+      setMarkedItems(storedMarks ? JSON.parse(storedMarks) : new Array(JSON.parse(storedData).length).fill(false));
     }
   }, []);
 
-  // Save data to localStorage whenever myarray changes
+  // Save data to localStorage whenever myarray or markedItems change
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(myarray));
-  }, [myarray]);
+    localStorage.setItem("markedItems", JSON.stringify(markedItems));
+  }, [myarray, markedItems]);
 
   function onChangeDo(event) {
     setMytext(event.target.value);
@@ -38,9 +41,17 @@ function App() {
       return;
     }
 
-    // Add the text to the array
-    setMyarray([...myarray, mytext]);
-    setMarkedItems([...markedItems, false]); // Add a new item and set it as not marked
+    if (editIndex !== -1) {
+      // If in edit mode, update the existing item
+      const updatedArray = [...myarray];
+      updatedArray[editIndex] = mytext;
+      setMyarray(updatedArray);
+      setEditIndex(-1); // Reset edit mode
+    } else {
+      // Otherwise, add a new item
+      setMyarray([...myarray, mytext]);
+      setMarkedItems([...markedItems, false]); // Add a new item and set it as not marked
+    }
 
     // Reset text input
     setMytext("");
@@ -55,6 +66,7 @@ function App() {
 
   function editItem(index) {
     setMytext(myarray[index]);
+    setEditIndex(index); // Set the index being edited
     document.querySelector('.to-do_textbox').focus();
   }
 
@@ -70,7 +82,7 @@ function App() {
         <div className="input-container container">
           <input type="search" name="txt" placeholder="Enter something..." value={mytext} onChange={onChangeDo} autoComplete="off" className="to-do_textbox" />
           &nbsp;
-          <button className="add_button" onClick={onClickAdd} >Add</button>
+          <button className="add_button" onClick={onClickAdd} >{editIndex !== -1 ? 'Save' : 'Add'}</button> {/* Change button text based on edit mode */}
         </div>
         <br /><br />
         <b>
