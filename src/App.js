@@ -40,7 +40,11 @@ function App() {
       alert("Please enter a value.");
       return;
     }
-
+    if (myarray.includes(mytext)) {
+      // If the value already exists in the array, show an alert for duplicate value
+      alert("Duplicate value try adding new one!");
+      return;
+    }
     if (editIndex !== -1) {
       // If in edit mode, update the existing item
       const updatedArray = [...myarray];
